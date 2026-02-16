@@ -2,7 +2,7 @@
 import React from 'react';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
-  PieChart, Pie, Cell 
+  PieChart, Pie, Cell, LineChart, Line, AreaChart, Area
 } from 'recharts';
 
 const BAR_DATA = [
@@ -21,6 +21,15 @@ const PIE_DATA = [
   { name: 'Other', value: 10, color: '#94a3b8' },
 ];
 
+const TREND_DATA = [
+  { date: '01/10', amount: 32000 },
+  { date: '05/10', amount: 33500 },
+  { date: '10/10', amount: 31000 },
+  { date: '15/10', amount: 35000 },
+  { date: '20/10', amount: 38000 },
+  { date: '25/10', amount: 45230 },
+];
+
 export const IncomeExpensesChart = () => (
   <div className="h-64 w-full">
     <ResponsiveContainer width="100%" height="100%">
@@ -35,10 +44,10 @@ export const IncomeExpensesChart = () => (
         <YAxis hide />
         <Tooltip 
           cursor={{ fill: '#f8fafc' }}
-          contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+          contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
         />
-        <Bar dataKey="income" fill="#1919e6" radius={[4, 4, 0, 0]} barSize={10} />
-        <Bar dataKey="expense" fill="#e2e8f0" radius={[4, 4, 0, 0]} barSize={10} />
+        <Bar dataKey="income" fill="#1919e6" radius={[4, 4, 0, 0]} barSize={12} />
+        <Bar dataKey="expense" fill="#e2e8f0" radius={[4, 4, 0, 0]} barSize={12} />
       </BarChart>
     </ResponsiveContainer>
   </div>
@@ -64,8 +73,34 @@ export const CategoryPieChart = () => (
       </PieChart>
     </ResponsiveContainer>
     <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-      <span className="text-[10px] text-slate-400 font-semibold">Total</span>
+      <span className="text-[10px] text-slate-400 font-semibold uppercase">Total</span>
       <span className="text-lg font-bold text-slate-800">$3.1k</span>
     </div>
+  </div>
+);
+
+export const TrendChart = () => (
+  <div className="h-64 w-full">
+    <ResponsiveContainer width="100%" height="100%">
+      <AreaChart data={TREND_DATA} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+        <defs>
+          <linearGradient id="colorAmount" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#1919e6" stopOpacity={0.1}/>
+            <stop offset="95%" stopColor="#1919e6" stopOpacity={0}/>
+          </linearGradient>
+        </defs>
+        <XAxis 
+          dataKey="date" 
+          axisLine={false} 
+          tickLine={false} 
+          tick={{ fontSize: 10, fill: '#94a3b8' }} 
+        />
+        <YAxis hide domain={['dataMin - 5000', 'dataMax + 5000']} />
+        <Tooltip 
+          contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+        />
+        <Area type="monotone" dataKey="amount" stroke="#1919e6" strokeWidth={3} fillOpacity={1} fill="url(#colorAmount)" />
+      </AreaChart>
+    </ResponsiveContainer>
   </div>
 );
