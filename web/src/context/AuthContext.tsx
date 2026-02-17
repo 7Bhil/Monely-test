@@ -46,6 +46,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setLoading(false);
         return;
       }
+      
+      setLoading(true);
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL || '/api/'}auth/profile/`);
         setUser(response.data);
@@ -61,9 +63,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [token]);
 
   const login = async (accessToken: string, refreshToken: string) => {
+    setLoading(true);
     setToken(accessToken);
+    localStorage.setItem('access_token', accessToken);
     localStorage.setItem('refresh_token', refreshToken);
-    // Profile will be fetched by the useEffect
+    
+    // Configure axios immediately for the profile fetch
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL || '/api/'}auth/profile/`);
+      setUser(response.data);
+    } catch (error) {
+      console.error('Initial profile fetch failed', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const logout = () => {

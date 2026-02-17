@@ -29,7 +29,7 @@ export default function OnboardingPage() {
   const handleStep1 = async () => {
     setLoading(true);
     try {
-      await axios.patch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api/'}auth/profile/update/`, {
+      await axios.patch(`${import.meta.env.VITE_API_URL || '/api/'}auth/profile/update/`, {
         monthly_income: parseFloat(income),
         income_frequency: frequency,
         currency: currency
