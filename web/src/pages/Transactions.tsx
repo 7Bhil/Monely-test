@@ -23,7 +23,7 @@ export default function TransactionsPage() {
   const fetchTransactions = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api/'}transactions/transactions/`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL || '/api/'}transactions/`);
       setTransactions(response.data.results || response.data);
     } catch (error) {
       console.error("Failed to fetch transactions", error);

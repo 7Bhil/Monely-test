@@ -24,8 +24,8 @@ const Analytics: React.FC = () => {
     try {
       setLoading(true);
       const [walletsRes, transactionsRes] = await Promise.all([
-        axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api/'}wallets/wallets/`),
-        axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api/'}transactions/transactions/`)
+        axios.get(`${import.meta.env.VITE_API_URL || '/api/'}wallets/wallets/`),
+        axios.get(`${import.meta.env.VITE_API_URL || '/api/'}transactions/transactions/`)
       ]);
       setWallets(walletsRes.data.results || walletsRes.data);
       setTransactions(transactionsRes.data.results || transactionsRes.data);

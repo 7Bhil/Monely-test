@@ -36,7 +36,7 @@ export function AddTransactionModal({ open, onOpenChange, onSuccess }: AddTransa
 
   useEffect(() => {
     if (open) {
-      axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api/'}wallets/wallets/`)
+      axios.get(`${import.meta.env.VITE_API_URL || '/api/'}wallets/wallets/`)
         .then(res => setWallets(res.data.results || res.data))
         .catch(err => console.error("Failed to fetch wallets", err));
     }
@@ -47,7 +47,7 @@ export function AddTransactionModal({ open, onOpenChange, onSuccess }: AddTransa
     if (!walletId) return;
     setLoading(true);
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api/'}transactions/transactions/`, {
+      await axios.post(`${import.meta.env.VITE_API_URL || '/api/'}transactions/transactions/`, {
         wallet: parseInt(walletId),
         name,
         amount: parseFloat(amount),

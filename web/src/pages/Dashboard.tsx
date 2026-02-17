@@ -33,8 +33,8 @@ export default function Dashboard() {
     try {
       setLoading(true);
       const [walletsRes, transactionsRes] = await Promise.all([
-        axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api/'}wallets/wallets/`),
-        axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api/'}transactions/transactions/`)
+        axios.get(`${import.meta.env.VITE_API_URL || '/api/'}wallets/wallets/`),
+        axios.get(`${import.meta.env.VITE_API_URL || '/api/'}transactions/transactions/`)
       ]);
       setWallets(walletsRes.data.results || walletsRes.data);
       setTransactions(transactionsRes.data.results || transactionsRes.data);
@@ -110,7 +110,7 @@ export default function Dashboard() {
     if (!wallets.length || !user?.monthly_income) return;
     setSalaryConfirming(true);
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api/'}transactions/transactions/`, {
+      await axios.post(`${import.meta.env.VITE_API_URL || '/api/'}transactions/transactions/`, {
         wallet: wallets[0].id, // Default to first wallet
         name: 'Salaire Mensuel',
         amount: user.monthly_income,

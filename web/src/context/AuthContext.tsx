@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         return;
       }
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api/'}auth/profile/`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL || '/api/'}auth/profile/`);
         setUser(response.data);
       } catch (error) {
         console.error('Failed to fetch profile', error);

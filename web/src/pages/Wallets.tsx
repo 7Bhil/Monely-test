@@ -22,7 +22,7 @@ export default function WalletsPage() {
   const fetchWallets = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api/'}wallets/wallets/`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL || '/api/'}wallets/`);
       setWallets(response.data.results || response.data);
     } catch (error) {
       console.error("Failed to fetch wallets", error);

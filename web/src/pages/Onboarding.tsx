@@ -64,7 +64,7 @@ export default function OnboardingPage() {
       const validExpenses = expenses.filter(e => e.name && e.amount);
       
       for (const expense of validExpenses) {
-          await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api/'}wallets/fixed-expenses/`, {
+          await axios.post(`${import.meta.env.VITE_API_URL || '/api/'}wallets/fixed-expenses/`, {
               name: expense.name,
               amount: parseFloat(expense.amount),
               periodicity: expense.periodicity,

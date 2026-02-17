@@ -36,7 +36,7 @@ export function AddWalletModal({ open, onOpenChange, onSuccess }: AddWalletModal
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:8000/api/'}wallets/wallets/`, {
+      await axios.post(`${import.meta.env.VITE_API_URL || '/api/'}wallets/wallets/`, {
         name,
         balance: parseFloat(balance),
         type,
